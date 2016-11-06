@@ -17,8 +17,11 @@ For example, if N = 4, the results would be:
 ·         Leytonstone High Road (lines = District, Overground)
 ·         Star Lane (lines = District, DLR)
 ·         Stratford (lines = District, Jubilee)
+
 You may use any language and tools to write your application but please use GitHub.com to store your code.
+
 Resources
+
 ·         London Tube Map: https://tfl.gov.uk/cdn/static/cms/images/tube-map.gif
 ·         List of Tube stations: https://www.doogal.co.uk/london_stations.php (select "Download" then "Tube line data CSV" to download a list of stations and their lines)
 
