@@ -35,20 +35,19 @@ class LondonTube:
     
     def __init__(self):
         print('Calling London Tube constructor')
-        self.resultsFromStation = list()
-        self.visitedList = list()
 
-    def findNeighbors(self, platform, graph, steps, visitedList):
+    def findNeighbors(self, platform, graph, steps, visitedList=[]):
         print('findNeighbors: ' + platform + ', ' + str(steps) + ', ')
         for vl in visitedList:
             print(platform + ' vl: ' + vl)
+        resultStations = []
         visitedList.append(platform)
         if steps < 0:
-            return
+            return sorted(set(resultStations))
         if steps == 0:
             print("adding............." + platform)
-            self.resultsFromStation.append(platform)
-            return
+            resultStations.append(platform)
+            return sorted(set(resultStations))
         for neighbor in graph[platform]['neighborList']:
             print('platform: ' + platform + ', neighbor: ' + neighbor + ', steps: ' + str(steps))
             if neighbor in visitedList:
@@ -58,7 +57,8 @@ class LondonTube:
                 #print('appending ' + neighbor + ' (to visitedList): ' + str(steps))
                 #visitedList.append(neighbor)
             print('calling ' + neighbor + ': ' + str(steps))
-            self.findNeighbors(neighbor, graph, steps - 1, visitedList)
+            resultStations += self.findNeighbors(neighbor, graph, steps - 1, visitedList)
+        return sorted(set(resultStations))
             
             
     @staticmethod
@@ -99,6 +99,10 @@ class LondonTube:
             if idx >= num:
                 break
                 
-    def printNeighbors(self):
-        print(sorted(self.resultsFromStation))
-        self.resultsFromStation = list()
+    def printNeighbors(self, startingStation, steps):
+        #print(sorted(self.resultsFromStation))
+        #self.resultsFromStation = list()
+        startingStationTubeLine = self._stationGraphDict[startingStation]['Tube Line']
+        rs = self.findNeighbors(startingStation, self._stationGraphDict, steps)
+        for neighbor in rs:
+            print(neighbor + ' (lines = ' + startingStationTubeLine + ')')
