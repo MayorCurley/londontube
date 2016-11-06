@@ -25,4 +25,11 @@ Resources
 ·         London Tube Map: https://tfl.gov.uk/cdn/static/cms/images/tube-map.gif  
 ·         List of Tube stations: https://www.doogal.co.uk/london_stations.php (select "Download" then "Tube line data CSV" to download a list of stations and their lines)
 
+### How to run London Tube
 
+1. Download code  
+2. Install londontubegraph module  
+3. Start up Python REPL  
+4. Import longontubegraph  
+5. Create LondonTube instance  
+6. Invoke LondonTube.displayNeighbors() method  
