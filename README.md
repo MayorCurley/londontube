@@ -42,5 +42,25 @@ Resources
 6. Create LondonTube instance  
    london_tube = ltg.LondonTube()  
 7. Invoke LondonTube.displayNeighbors() method  
-   example  
+   The LondonTube class displayNeighbors method has the following signature:  
+   displayNeighbors(self, startingStation, steps)  
+   example:  
    london_tube.displayNeighbors('East Ham', 4)  
+
+### About LondonTube Class  
+
+  """Represents the London Tube System and provides information  
+  about its stations (platforms) and the relationship between those stations.
+
+  The class member _stationGraphDict stores the information that is gathered  
+  from a CSV file downloaded from the London Tube System. It is initialized  
+  and then shared among instances for efficiency sake.  
+
+  The station graph is stored as a dictionary of dictionaries for quick  
+  lookup (hashing). So the first key would be the station name (for example,  
+  'East Ham') and its value would be the station's various attributes in  
+  dictionary form (such as its 'Tube Line' and 'Neighbor List').  
+ 
+  A graph is a series of Nodes (or Vertexes) and Edges which are paths to  
+  adjacent Nodes. This class refers to these adjacent Nodes as Neighbors.  
+  """
