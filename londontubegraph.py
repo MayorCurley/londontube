@@ -5,6 +5,7 @@ londontubegraph.py - traverse the London tube system (Graph Traversal)
 # NOTE: these whole modules don't have to be imported
 import os
 import csv
+from collections import OrderedDict
 
 class LondonTube:
     """Represents the London Tube System and provides information 
@@ -117,5 +118,5 @@ class LondonTube:
         
         for neighbor in rs:
             neighborStationTubeLine = self._stationGraphDict[neighbor]['Tube Line']
-            tubeLineSet = set([startingStationTubeLine,neighborStationTubeLine])
-            print(neighbor + ' (lines = ' + ', '.join(tubeLineSet) + ')')
+            tubeLines = OrderedDict.fromkeys([startingStationTubeLine,neighborStationTubeLine])
+            print(neighbor + ' (lines = ' + ', '.join(tubeLines) + ')')
