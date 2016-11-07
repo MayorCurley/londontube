@@ -22,7 +22,6 @@ class LondonTube:
     
     A graph is a series of Nodes (or Vertexes) and Edges which are paths to 
     adjacent Nodes.  This class refers to these adjacent Nodes as Neighbors.
-
     """
     
     # stores the information about the London Tube System and its stations
@@ -41,31 +40,41 @@ class LondonTube:
     def __init__(self):
         print('Calling London Tube constructor')
 
-    def findNeighbors(self, platform, graph, steps, visitedList=[]):
-        print('findNeighbors: ' + platform + ', ' + str(steps) + ', ')
-        for vl in visitedList:
-            print(platform + ' vl: ' + vl)
+    def findNeighbors(self, platform, graph, steps, visitedList=None):
+        """
+        Finds the neighbors of the platform (station) parameter that 
+        are reached from the specified amount of steps.
+        
+        This method uses recursion to traverse the graph (that represents
+        the tube system) and retrieve the requested station neighbors.
+        """
+        
+        #print('findNeighbors: ' + platform + ', ' + str(steps) + ', ')
+        #for vl in visitedList:
+        #    print(platform + ' vl: ' + vl)
         
         resultStations = []
+        if not visitedList:
+            visitedList = list()
         visitedList.append(platform)
         
         if steps < 0:
             return sorted(set(resultStations))
         
         if steps == 0:
-            print("adding............." + platform)
+            #print("adding............." + platform)
             resultStations.append(platform)
             return sorted(set(resultStations))
         
         for neighbor in graph[platform]['neighborList']:
-            print('platform: ' + platform + ', neighbor: ' + neighbor + ', steps: ' + str(steps))
+            #print('platform: ' + platform + ', neighbor: ' + neighbor + ', steps: ' + str(steps))
             if neighbor in visitedList:
-                print('skipping ' + neighbor + ': ' + str(steps))
+                #print('skipping ' + neighbor + ': ' + str(steps))
                 continue
             #else:
                 #print('appending ' + neighbor + ' (to visitedList): ' + str(steps))
                 #visitedList.append(neighbor)
-            print('calling ' + neighbor + ': ' + str(steps))
+            #print('calling ' + neighbor + ': ' + str(steps))
             resultStations += self.findNeighbors(neighbor, graph, steps - 1, visitedList)
         
         return sorted(set(resultStations))
@@ -73,6 +82,10 @@ class LondonTube:
             
     @staticmethod
     def loadLondonTube(cls):
+        """
+        Loads the London Tube graph from an informational CSV file
+        """
+        
         print('loadLondonTube.................')
         
         london_tube_file = open('London tube lines.csv')
@@ -85,6 +98,19 @@ class LondonTube:
         
             
     def createTubeGraph(self, parentDict, reader, platformKey, neighborKey):
+        """
+        Main workhorse for loading the London Tube graph.
+        
+        The graph is stored as a dictionary of dictionaries.  The parent
+        dictionary contains the station name as a key (for quick lookup)
+        while the the child dictionary holds the attributes, such as the
+        neighbor list of the station.
+        
+        The graph is designed so that each station holds its neighbor list 
+        so the graph can be traversed by steps to find its requested neighbor
+        stations.
+        """
+    
         print('createTubeGraph.................')
         #idx = 0
         for row in reader:
@@ -99,6 +125,7 @@ class LondonTube:
                 parentDict[row[platformKey]] = row
                 parentDict[row[platformKey]]['neighborList'] = list()
                 parentDict[row[platformKey]]['neighborList'].append(row[neighborKey])
+            
             if row[neighborKey] in parentDict:
                 if 'neighborList' not in parentDict[row[neighborKey]]:
                     parentDict[row[neighborKey]]['neighborList'] = list()
@@ -113,6 +140,12 @@ class LondonTube:
             #    break
                 
     def printNeighbors(self, startingStation, steps):
+        """
+        This method allows the client to specify the station from
+        which they wish to start from and how many steps to take to find
+        its neighbors.  The neighbors and their respective lines are displayed.
+        """
+        
         startingStationTubeLine = self._stationGraphDict[startingStation]['Tube Line']
         rs = self.findNeighbors(startingStation, self._stationGraphDict, steps)
         
