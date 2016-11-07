@@ -64,3 +64,12 @@ Resources
   A graph is a series of Nodes (or Vertexes) and Edges which are paths to  
   adjacent Nodes. This class refers to these adjacent Nodes as Neighbors.  
   """
+  
+  def _findNeighbors(self, platform, graph, steps, visitedList=None):
+    """  
+    Finds the neighbors of the platform (station) parameter that  
+    are reached from the specified amount of steps.
+    
+    This method uses recursion to traverse the graph (that represents  
+    the tube system) and retrieve the requested station neighbors.  
+    """
