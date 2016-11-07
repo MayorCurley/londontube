@@ -24,13 +24,17 @@ class LondonTube:
 
     """
     
+    # stores the information about the London Tube System and its stations
+    # the 'London tube lines.csv' file is loaded in to this collection
     _stationGraphDict = None
     
     def __new__(cls):
         print('Calling London Tube new')
+        
         if not cls._stationGraphDict:
             cls._stationGraphDict = dict()
             cls.loadLondonTube(cls)
+        
         return super(LondonTube, cls).__new__(cls)
     
     def __init__(self):
@@ -40,14 +44,18 @@ class LondonTube:
         print('findNeighbors: ' + platform + ', ' + str(steps) + ', ')
         for vl in visitedList:
             print(platform + ' vl: ' + vl)
+        
         resultStations = []
         visitedList.append(platform)
+        
         if steps < 0:
             return sorted(set(resultStations))
+        
         if steps == 0:
             print("adding............." + platform)
             resultStations.append(platform)
             return sorted(set(resultStations))
+        
         for neighbor in graph[platform]['neighborList']:
             print('platform: ' + platform + ', neighbor: ' + neighbor + ', steps: ' + str(steps))
             if neighbor in visitedList:
@@ -58,22 +66,26 @@ class LondonTube:
                 #visitedList.append(neighbor)
             print('calling ' + neighbor + ': ' + str(steps))
             resultStations += self.findNeighbors(neighbor, graph, steps - 1, visitedList)
+        
         return sorted(set(resultStations))
             
             
     @staticmethod
     def loadLondonTube(cls):
         print('loadLondonTube.................')
+        
         london_tube_file = open('London tube lines.csv')
         reader = csv.DictReader(london_tube_file)
-        # try block to close file
-        createTubeGraph(cls._stationGraphDict, reader, 500, 'From Station', 'To Station')
-        london_tube_file.close()
+        
+        try:
+            createTubeGraph(cls._stationGraphDict, reader, 500, 'From Station', 'To Station')
+        finally:
+            london_tube_file.close()
         
             
-    def createTubeGraph(self, parentDict, reader, num, platformKey, neighborKey):
+    def createTubeGraph(self, parentDict, reader, platformKey, neighborKey):
         print('createTubeGraph.................')
-        idx = 0
+        #idx = 0
         for row in reader:
             if row[platformKey] in parentDict:
                 if platformKey not in parentDict[row[platformKey]]:
@@ -95,14 +107,15 @@ class LondonTube:
                 parentDict[row[neighborKey]] = dict()
                 parentDict[row[neighborKey]]['neighborList'] = list()
                 parentDict[row[neighborKey]]['neighborList'].append(row[platformKey])
-            idx = idx + 1
-            if idx >= num:
-                break
+            #idx = idx + 1
+            #if idx >= num:
+            #    break
                 
     def printNeighbors(self, startingStation, steps):
-        #print(sorted(self.resultsFromStation))
-        #self.resultsFromStation = list()
         startingStationTubeLine = self._stationGraphDict[startingStation]['Tube Line']
         rs = self.findNeighbors(startingStation, self._stationGraphDict, steps)
+        
         for neighbor in rs:
-            print(neighbor + ' (lines = ' + startingStationTubeLine + ')')
+            neighborStationTubeLine = self._stationGraphDict[neighbor]['Tube Line']
+            tubeLineSet = set([startingStationTubeLine,neighborStationTubeLine])
+            print(neighbor + ' (lines = ' + ', '.join(tubeLineSet) + ')')
