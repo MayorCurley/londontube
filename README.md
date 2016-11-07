@@ -28,8 +28,27 @@ Resources
 ### How to run London Tube
 
 1. Download code  
+
+from https://github.com/MayorCurley/londontube.git  
+
 2. Install londontubegraph module  
+
+python setup.py install
+
 3. Start up Python REPL  
-4. Import longontubegraph  
+
+python  
+>>>  
+
+4. Import londontubegraph  
+
+import londontubegraph as ltg  
+
 5. Create LondonTube instance  
+
+london_tube = ltg.LondonTube()  
+
 6. Invoke LondonTube.displayNeighbors() method  
+
+example  
+london_tube.displayNeighbors('East Ham', 4)
