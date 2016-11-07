@@ -65,7 +65,8 @@ Resources
   adjacent Nodes. This class refers to these adjacent Nodes as Neighbors.  
   """
   
-  def _findNeighbors(self, platform, graph, steps, visitedList=None):
+  #### def _findNeighbors(self, platform, graph, steps, visitedList=None):
+  
     """  
     Finds the neighbors of the platform (station) parameter that  
     are reached from the specified amount of steps.
