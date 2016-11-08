@@ -27,7 +27,7 @@ Resources
 
 ### How to run London Tube
 
-This was written on Windows with Python v.3.5.2
+This was written on Windows with Python version 3.5.2
 
 1. Download code  
    from https://github.com/MayorCurley/londontube.git  
