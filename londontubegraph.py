@@ -92,12 +92,12 @@ class LondonTube:
         reader = csv.DictReader(london_tube_file)
         
         try:
-            createTubeGraph(cls._stationGraphDict, reader, 500, 'From Station', 'To Station')
+            cls.createTubeGraph(cls._stationGraphDict, reader, 'From Station', 'To Station')
         finally:
             london_tube_file.close()
         
             
-    def createTubeGraph(self, parentDict, reader, platformKey, neighborKey):
+    def createTubeGraph(parentDict, reader, platformKey, neighborKey):
         """
         Main workhorse for loading the London Tube graph.
         
