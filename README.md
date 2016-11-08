@@ -27,6 +27,8 @@ Resources
 
 ### How to run London Tube
 
+This was written on Windows with Python v.3.5.2
+
 1. Download code  
    from https://github.com/MayorCurley/londontube.git  
 2. Install londontubegraph module  
@@ -41,11 +43,11 @@ Resources
    import londontubegraph as ltg  
 6. Create LondonTube instance  
    london_tube = ltg.LondonTube()  
-7. Invoke LondonTube.displayNeighbors() method  
-   The LondonTube class displayNeighbors method has the following signature:  
-   displayNeighbors(self, startingStation, steps)  
+7. Invoke LondonTube.printNeighbors() method  
+   The LondonTube class printNeighbors method has the following signature:  
+   printNeighbors(self, startingStation, steps)  
    example:  
-   london_tube.displayNeighbors('East Ham', 4)  
+   london_tube.printNeighbors('East Ham', 4)  
 
 ### About LondonTube Class  
 
