@@ -10,9 +10,10 @@ def main(argv = None):
     while station_input != 'exit':
 
         station_input = input('What station would you like to start from? (type exit to end program)  ')
-        step_input = input('How many steps from the station would you like to go?  (positive numbers only)  ')
+        if station_input != 'exit':
+            step_input = input('How many steps from the station would you like to go?  (positive numbers only)  ')
 
-        if station_input != 'exit' and step_input:
+        if station_input and station_input != 'exit' and step_input:
             london_tube = ltg.LondonTube()
 
             print('')
