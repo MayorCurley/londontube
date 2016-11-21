@@ -146,10 +146,16 @@ class LondonTube:
         its neighbors.  The neighbors and their respective lines are displayed.
         """
         
-        startingStationTubeLine = self._stationGraphDict[startingStation]['Tube Line']
-        rs = self.findNeighbors(startingStation, self._stationGraphDict, steps)
+        if self._stationGraphDict[startingStation]['Tube Line']:
+            startingStationTubeLine = self._stationGraphDict[startingStation]['Tube Line']
+            rs = self.findNeighbors(startingStation, self._stationGraphDict, steps)
+        else:
+            print(startingStation + " doesn't have an entry for the key 'Tube Line'")
         
         for neighbor in rs:
-            neighborStationTubeLine = self._stationGraphDict[neighbor]['Tube Line']
-            tubeLines = OrderedDict.fromkeys([startingStationTubeLine,neighborStationTubeLine])
-            print(neighbor + ' (lines = ' + ', '.join(tubeLines) + ')')
+            if self._stationGraphDict[neighbor]['Tube Line']:
+                neighborStationTubeLine = self._stationGraphDict[neighbor]['Tube Line']
+                tubeLines = OrderedDict.fromkeys([startingStationTubeLine,neighborStationTubeLine])
+                print(neighbor + ' (lines = ' + ', '.join(tubeLines) + ')')
+            else:
+                print(neighbor + " doesn't have an entry for the key 'Tube Line'")
